@@ -16,7 +16,6 @@
     --green: #16a34a;
     --red: #dc2626;
     --amber: #d97706;
-    --pill-bg: rgba(59,130,246,0.15);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -25,14 +24,14 @@
     color: var(--text);
     min-height: 100vh;
     padding: 16px;
-    padding-bottom: 80px;
+    padding-bottom: 100px;
   }
   .header {
     text-align: center;
-    padding: 24px 0 16px;
+    padding: 20px 0 12px;
   }
   .header h1 {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 700;
     letter-spacing: -0.5px;
     background: linear-gradient(135deg, #3b82f6, #10b981);
@@ -42,64 +41,95 @@
   .header p {
     color: var(--text-dim);
     font-size: 13px;
-    margin-top: 6px;
+    margin-top: 4px;
   }
-  .tabs {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-bottom: 20px;
-  }
-  .tab {
-    padding: 8px 20px;
-    border-radius: 20px;
+
+  /* Name input */
+  .name-section {
+    background: var(--card);
     border: 1px solid var(--card-border);
-    background: transparent;
-    color: var(--text-dim);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  .name-section label {
     font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 8px;
   }
-  .tab.active {
-    background: var(--accent);
-    color: white;
-    border-color: var(--accent);
+  .name-section .hint {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-bottom: 8px;
   }
+  .name-input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--card-border);
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .name-input:focus { border-color: var(--accent); }
+  .name-input::placeholder { color: #475569; }
+
+  /* Voter count */
+  .voter-count {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 13px;
+    margin-bottom: 16px;
+    padding: 8px;
+    background: var(--card);
+    border-radius: 10px;
+    border: 1px solid var(--card-border);
+  }
+  .voter-count strong { color: var(--text); font-size: 18px; }
+
+  /* Category cards */
   .category {
     background: var(--card);
     border: 1px solid var(--card-border);
     border-radius: 12px;
-    padding: 20px;
+    padding: 16px;
     margin-bottom: 16px;
   }
   .category h2 {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
   }
-  .category .budget {
+  .cat-budget {
     font-size: 12px;
     color: var(--text-dim);
-    margin-bottom: 14px;
+    margin-bottom: 12px;
   }
-  .option {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px;
-    border-radius: 8px;
-    margin-bottom: 6px;
+
+  /* Option rows — checkbox + bar combined */
+  .opt-row {
+    margin-bottom: 10px;
     cursor: pointer;
-    transition: background 0.15s;
     -webkit-tap-highlight-color: transparent;
   }
-  .option:hover { background: rgba(255,255,255,0.04); }
-  .option.selected { background: rgba(59,130,246,0.12); }
-  .option input[type="checkbox"] { display: none; }
+  .opt-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 4px;
+    border-radius: 8px;
+    transition: background 0.15s;
+  }
+  .opt-row:active .opt-top { background: rgba(255,255,255,0.04); }
+  .opt-row.selected .opt-top { background: rgba(59,130,246,0.1); }
+  .opt-row input[type="checkbox"] { display: none; }
+
   .checkmark {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
     border-radius: 6px;
     border: 2px solid var(--card-border);
     display: flex;
@@ -107,31 +137,85 @@
     justify-content: center;
     flex-shrink: 0;
     transition: all 0.15s;
-    font-size: 14px;
+    font-size: 13px;
   }
-  .option.selected .checkmark {
+  .opt-row.selected .checkmark {
     background: var(--accent);
     border-color: var(--accent);
   }
-  .option.selected .checkmark::after { content: "✓"; color: white; font-weight: 700; }
-  .option-label {
-    font-size: 15px;
-    font-weight: 500;
-  }
-  .option-note {
-    font-size: 11px;
-    color: var(--text-dim);
-    margin-top: 2px;
-  }
-  .save-option .option-label { color: var(--amber); }
+  .opt-row.selected .checkmark::after { content: "✓"; color: white; font-weight: 700; }
 
+  .opt-info { flex: 1; min-width: 0; }
+  .opt-name {
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .opt-note {
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-top: 1px;
+  }
+  .opt-stats {
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .opt-votes {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .opt-amount {
+    font-size: 11px;
+    color: var(--accent2);
+    font-weight: 600;
+  }
+  .opt-amount.eliminated {
+    color: var(--red);
+    opacity: 0.7;
+  }
+
+  /* Bar */
+  .bar-bg {
+    height: 6px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 3px;
+    overflow: hidden;
+    margin: 4px 36px 0 36px;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.4s ease;
+    background: var(--accent);
+  }
+  .bar-fill.green { background: var(--accent2); }
+  .bar-fill.eliminated { background: var(--red); opacity: 0.4; }
+
+  .save-opt .opt-name { color: var(--amber); }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 6px;
+    letter-spacing: 0.3px;
+  }
+  .tag-elim { background: rgba(220,38,38,0.15); color: var(--red); }
+  .tag-cap { background: rgba(16,185,129,0.12); color: var(--accent2); }
+
+  /* Submit bar */
   .submit-wrap {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 12px 16px;
-    background: linear-gradient(transparent, var(--bg) 20%);
+    padding: 10px 16px;
+    background: linear-gradient(transparent, var(--bg) 30%);
     z-index: 10;
   }
   .submit-btn {
@@ -146,102 +230,27 @@
     cursor: pointer;
     transition: opacity 0.2s;
   }
-  .submit-btn:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-  }
+  .submit-btn:disabled { opacity: 0.4; cursor: not-allowed; }
   .submit-btn:not(:disabled):active { opacity: 0.85; }
 
-  /* Results */
-  .result-cat {
-    background: var(--card);
-    border: 1px solid var(--card-border);
+  /* Success toast */
+  .toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent2);
+    color: white;
+    padding: 12px 24px;
     border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 16px;
-  }
-  .result-cat h2 {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
-    margin-bottom: 14px;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
   }
-  .result-row {
-    margin-bottom: 12px;
-  }
-  .result-row-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 4px;
-  }
-  .result-name {
-    font-size: 14px;
-    font-weight: 500;
-  }
-  .result-stats {
-    font-size: 12px;
-    color: var(--text-dim);
-    text-align: right;
-  }
-  .bar-bg {
-    height: 8px;
-    background: rgba(255,255,255,0.08);
-    border-radius: 4px;
-    overflow: hidden;
-  }
-  .bar-fill {
-    height: 100%;
-    border-radius: 4px;
-    transition: width 0.5s ease;
-    background: var(--accent);
-  }
-  .bar-fill.green { background: var(--accent2); }
-  .bar-fill.eliminated { background: var(--red); opacity: 0.5; }
-  .eliminated-tag {
-    display: inline-block;
-    font-size: 10px;
-    font-weight: 600;
-    color: var(--red);
-    background: rgba(220,38,38,0.15);
-    padding: 2px 8px;
-    border-radius: 8px;
-    margin-left: 6px;
-  }
-  .allocation-tag {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--accent2);
-    background: rgba(16,185,129,0.12);
-    padding: 2px 8px;
-    border-radius: 8px;
-    margin-left: 6px;
-  }
-  .total-voters {
-    text-align: center;
-    color: var(--text-dim);
-    font-size: 13px;
-    margin-bottom: 16px;
-    padding: 10px;
-    background: var(--card);
-    border-radius: 10px;
-    border: 1px solid var(--card-border);
-  }
-  .total-voters strong { color: var(--text); font-size: 20px; }
-
-  .success-msg {
-    text-align: center;
-    padding: 40px 20px;
-  }
-  .success-msg .icon { font-size: 48px; margin-bottom: 12px; }
-  .success-msg h2 { font-size: 22px; color: var(--accent2); margin-bottom: 8px; }
-  .success-msg p { color: var(--text-dim); font-size: 14px; }
-
-  .loading {
-    text-align: center;
-    padding: 40px;
-    color: var(--text-dim);
-  }
+  .toast.show { opacity: 1; }
 
   .footer {
     text-align: center;
@@ -249,218 +258,221 @@
     font-size: 11px;
     padding: 20px 0;
   }
-
-  #voteView, #resultsView, #successView { display: none; }
-  .visible { display: block !important; }
-
-  .warn-box {
-    background: rgba(217,119,6,0.12);
-    border: 1px solid rgba(217,119,6,0.3);
-    border-radius: 10px;
-    padding: 14px;
-    margin-bottom: 16px;
-    text-align: center;
-    font-size: 13px;
-    color: var(--amber);
-  }
 </style>
 </head>
 <body>
 
 <div class="header">
   <h1>Giving Allocation Vote</h1>
-  <p>Select the options you approve in each category</p>
+  <p>Tap options you approve · Results update live</p>
 </div>
 
-<div class="tabs">
-  <button class="tab active" onclick="showView('vote')">Vote</button>
-  <button class="tab" onclick="showView('results')">View Results</button>
+<div class="name-section">
+  <label>Your Name</label>
+  <div class="hint">Used for auditing only — not shown in results</div>
+  <input type="text" class="name-input" id="voterName" placeholder="Enter your name or pseudonym">
 </div>
 
-<!-- VOTE VIEW -->
-<div id="voteView" class="visible">
-
-  <div id="alreadyVoted" class="warn-box" style="display:none;">
-    You have already submitted your vote from this device.
-  </div>
-
-  <form id="voteForm">
-    <div class="category">
-      <h2>1. Church Planting</h2>
-      <div class="budget">Select all options you approve</div>
-      <label class="option" onclick="toggleOpt(this)">
-        <input type="checkbox" name="cat1" value="Hope Village">
-        <div class="checkmark"></div>
-        <div><div class="option-label">Hope Village</div></div>
-      </label>
-      <label class="option" onclick="toggleOpt(this)">
-        <input type="checkbox" name="cat1" value="Stan and Tasha">
-        <div class="checkmark"></div>
-        <div><div class="option-label">Stan and Tasha</div></div>
-      </label>
-      <label class="option" onclick="toggleOpt(this)">
-        <input type="checkbox" name="cat1" value="Radical">
-        <div class="checkmark"></div>
-        <div><div class="option-label">Radical</div></div>
-      </label>
-      <label class="option save-option" onclick="toggleOpt(this)">
-        <input type="checkbox" name="cat1" value="Save for Future Giving">
-        <div class="checkmark"></div>
-        <div><div class="option-label">Save for Future Giving</div></div>
-      </label>
-    </div>
-
-    <div class="category">
-      <h2>2. Orphans, Widows & Sojourners</h2>
-      <div class="budget">Select all options you approve</div>
-      <label class="option" onclick="toggleOpt(this)">
-        <input type="checkbox" name="cat2" value="Crisis Aid International">
-        <div class="checkmark"></div>
-        <div><div class="option-label">Crisis Aid International</div></div>
-      </label>
-      <label class="option" onclick="toggleOpt(this)">
-        <input type="checkbox" name="cat2" value="Lifesong for Orphans">
-        <div class="checkmark"></div>
-        <div><div class="option-label">Lifesong for Orphans</div></div>
-      </label>
-      <label class="option" onclick="toggleOpt(this)">
-        <input type="checkbox" name="cat2" value="Send Relief">
-        <div class="checkmark"></div>
-        <div><div class="option-label">Send Relief</div></div>
-      </label>
-      <label class="option save-option" onclick="toggleOpt(this)">
-        <input type="checkbox" name="cat2" value="Save for Future Giving">
-        <div class="checkmark"></div>
-        <div><div class="option-label">Save for Future Giving</div></div>
-      </label>
-    </div>
-
-    <div class="category">
-      <h2>3. Persecuted Church</h2>
-      <div class="budget">Select all options you approve</div>
-      <label class="option" onclick="toggleOpt(this)">
-        <input type="checkbox" name="cat3" value="Open Doors International">
-        <div class="checkmark"></div>
-        <div><div class="option-label">Open Doors International</div></div>
-      </label>
-      <label class="option" onclick="toggleOpt(this)">
-        <input type="checkbox" name="cat3" value="Global Christian Relief">
-        <div class="checkmark"></div>
-        <div><div class="option-label">Global Christian Relief</div></div>
-      </label>
-      <label class="option save-option" onclick="toggleOpt(this)">
-        <input type="checkbox" name="cat3" value="Save for Future Giving">
-        <div class="checkmark"></div>
-        <div><div class="option-label">Save for Future Giving</div></div>
-      </label>
-    </div>
-
-    <div class="category">
-      <h2>4. Ministry of the Word & Global Church Needs</h2>
-      <div class="budget">Select all options you approve</div>
-      <label class="option" onclick="toggleOpt(this)">
-        <input type="checkbox" name="cat4" value="Joyful Joseph">
-        <div class="checkmark"></div>
-        <div><div class="option-label">Joyful Joseph</div></div>
-      </label>
-      <label class="option" onclick="toggleOpt(this)">
-        <input type="checkbox" name="cat4" value="Ridgy Vibrating Ball">
-        <div class="checkmark"></div>
-        <div>
-          <div class="option-label">Ridgy Vibrating Ball</div>
-          <div class="option-note">Fixed cost: SAR 280</div>
-        </div>
-      </label>
-      <label class="option save-option" onclick="toggleOpt(this)">
-        <input type="checkbox" name="cat4" value="Save for Future Giving">
-        <div class="checkmark"></div>
-        <div><div class="option-label">Save for Future Giving</div></div>
-      </label>
-    </div>
-  </form>
-
-  <div class="submit-wrap">
-    <button class="submit-btn" id="submitBtn" onclick="submitVote()">Submit Vote</button>
-  </div>
+<div class="voter-count">
+  Total votes submitted: <strong id="totalVoters">—</strong>
 </div>
 
-<!-- SUCCESS VIEW -->
-<div id="successView">
-  <div class="success-msg">
-    <div class="icon">✅</div>
-    <h2>Vote Recorded</h2>
-    <p>Thank you for voting. Your selections have been saved.</p>
-    <p style="margin-top:16px;">
-      <button class="tab" onclick="showView('results')" style="font-size:15px;padding:10px 24px;">View Live Results</button>
-    </p>
-  </div>
+<div id="categoriesContainer"></div>
+
+<div class="submit-wrap">
+  <button class="submit-btn" id="submitBtn" onclick="submitVote()">Submit Vote</button>
 </div>
 
-<!-- RESULTS VIEW -->
-<div id="resultsView">
-  <div id="resultsLoading" class="loading">Loading results...</div>
-  <div id="resultsContent" style="display:none;"></div>
-</div>
+<div class="toast" id="toast">✅ Vote Recorded!</div>
 
 <div class="footer">Anonymous approval voting · Results update live</div>
 
 <script>
 // ═══════════════════════════════════════
-// CONFIGURATION — edit these values
+// CONFIGURATION
 // ═══════════════════════════════════════
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzLQa5a5OpGCuTRRa6Q6T3mL3EFS1-0iLrmE3BsgucdFUWkv2oW43ZZUWfigtHOFXnykQ/exec";
-const CAT1_BUDGET = 5606;
-const CAT2_BUDGET = 5606;
-const CAT3_BUDGET = 5606;
-const CAT4_BUDGET = 8409;
 const MIN_VOTES = 6;
 const FIXED_COSTS = { "Ridgy Vibrating Ball": 280 };
 
 const CATEGORIES = [
-  { key: "cat1", name: "Church Planting", budget: CAT1_BUDGET,
+  { key: "cat1", name: "Church Planting", budget: 5606,
     options: ["Hope Village","Stan and Tasha","Radical","Save for Future Giving"] },
-  { key: "cat2", name: "Orphans, Widows & Sojourners", budget: CAT2_BUDGET,
+  { key: "cat2", name: "Orphans, Widows & Sojourners", budget: 5606,
     options: ["Crisis Aid International","Lifesong for Orphans","Send Relief","Save for Future Giving"] },
-  { key: "cat3", name: "Persecuted Church", budget: CAT3_BUDGET,
+  { key: "cat3", name: "Persecuted Church", budget: 5606,
     options: ["Open Doors International","Global Christian Relief","Save for Future Giving"] },
-  { key: "cat4", name: "Ministry of the Word & Global Church Needs", budget: CAT4_BUDGET,
+  { key: "cat4", name: "Ministry of the Word & Global Church Needs", budget: 8409,
     options: ["Joyful Joseph","Ridgy Vibrating Ball","Save for Future Giving"] }
 ];
 
 // ═══════════════════════════════════════
-// VOTING
+// STATE
 // ═══════════════════════════════════════
-function toggleOpt(el) {
-  // Let the checkbox toggle naturally, then update class
-  setTimeout(() => {
-    const cb = el.querySelector('input[type="checkbox"]');
-    el.classList.toggle('selected', cb.checked);
-  }, 0);
-}
+let serverCounts = {};  // from server
+let mySelections = {};  // current user's live selections
+let serverTotalVoters = 0;
 
-function showView(view) {
-  document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', 
-    (view === 'vote' && i === 0) || (view === 'results' && i === 1)));
-  document.getElementById('voteView').classList.toggle('visible', view === 'vote');
-  document.getElementById('resultsView').classList.toggle('visible', view === 'results');
-  document.getElementById('successView').classList.toggle('visible', view === 'success');
-  if (view === 'results') loadResults();
-}
+CATEGORIES.forEach(c => {
+  serverCounts[c.key] = {};
+  mySelections[c.key] = new Set();
+});
 
-// Check if already voted
-if (localStorage.getItem('giving_voted')) {
-  document.getElementById('alreadyVoted').style.display = 'block';
-  document.getElementById('submitBtn').disabled = true;
-  document.getElementById('submitBtn').textContent = 'Already Voted';
-  // Disable all checkboxes
-  document.querySelectorAll('.option').forEach(o => {
-    o.style.pointerEvents = 'none';
-    o.style.opacity = '0.5';
+// ═══════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════
+function buildUI() {
+  const container = document.getElementById('categoriesContainer');
+  let html = '';
+  CATEGORIES.forEach(cat => {
+    html += `<div class="category" id="card-${cat.key}">`;
+    html += `<h2>${cat.name}</h2>`;
+    html += `<div class="cat-budget">Budget: SAR ${cat.budget.toLocaleString()} · Min ${MIN_VOTES} votes to qualify</div>`;
+    cat.options.forEach(opt => {
+      const isSave = opt === "Save for Future Giving";
+      const isFixed = FIXED_COSTS[opt];
+      html += `<div class="opt-row ${isSave ? 'save-opt' : ''}" data-cat="${cat.key}" data-opt="${opt}" onclick="toggleOption(this)">`;
+      html += `<input type="checkbox">`;
+      html += `<div class="opt-top">`;
+      html += `<div class="checkmark"></div>`;
+      html += `<div class="opt-info">`;
+      html += `<div class="opt-name">${isSave ? '🏦 ' : ''}${opt} <span class="tag-inline" id="tag-${cat.key}-${slugify(opt)}"></span></div>`;
+      if (isFixed) html += `<div class="opt-note">Fixed cost: SAR ${FIXED_COSTS[opt]}</div>`;
+      html += `</div>`;
+      html += `<div class="opt-stats">`;
+      html += `<div class="opt-votes" id="votes-${cat.key}-${slugify(opt)}">0</div>`;
+      html += `<div class="opt-amount" id="amt-${cat.key}-${slugify(opt)}"></div>`;
+      html += `</div>`;
+      html += `</div>`;
+      html += `<div class="bar-bg"><div class="bar-fill" id="bar-${cat.key}-${slugify(opt)}" style="width:0%"></div></div>`;
+      html += `</div>`;
+    });
+    html += `</div>`;
   });
+  container.innerHTML = html;
+}
+
+function slugify(s) {
+  return s.replace(/[^a-zA-Z0-9]/g, '_');
+}
+
+function toggleOption(el) {
+  const cat = el.dataset.cat;
+  const opt = el.dataset.opt;
+  el.classList.toggle('selected');
+  if (el.classList.contains('selected')) {
+    mySelections[cat].add(opt);
+  } else {
+    mySelections[cat].delete(opt);
+  }
+  updateDisplay();
+}
+
+function allocate(counts, budget) {
+  const passing = {};
+  const eliminated = {};
+  for (const [name, votes] of Object.entries(counts)) {
+    if (votes < MIN_VOTES) eliminated[name] = votes;
+    else passing[name] = votes;
+  }
+  const totalPV = Object.values(passing).reduce((a,b) => a+b, 0);
+  if (totalPV === 0) return { results: {}, eliminated };
+
+  let results = {};
+  for (const [name, votes] of Object.entries(passing)) {
+    results[name] = { votes, amount: (votes / totalPV) * budget, capped: false };
+  }
+
+  let surplus = 0;
+  for (const [name, r] of Object.entries(results)) {
+    if (FIXED_COSTS[name] && r.amount > FIXED_COSTS[name]) {
+      surplus += r.amount - FIXED_COSTS[name];
+      r.amount = FIXED_COSTS[name];
+      r.capped = true;
+    }
+  }
+  if (surplus > 0) {
+    const uncapped = Object.entries(results).filter(([,r]) => !r.capped);
+    const uv = uncapped.reduce((a,[,r]) => a + r.votes, 0);
+    if (uv > 0) {
+      uncapped.forEach(([name, r]) => { r.amount += (r.votes / uv) * surplus; });
+    }
+  }
+  for (const r of Object.values(results)) r.amount = Math.round(r.amount);
+  return { results, eliminated };
+}
+
+function updateDisplay() {
+  // Merge server counts with my live selections
+  CATEGORIES.forEach(cat => {
+    const merged = {};
+    cat.options.forEach(opt => {
+      merged[opt] = (serverCounts[cat.key][opt] || 0) + (mySelections[cat.key].has(opt) ? 1 : 0);
+    });
+    const maxVotes = Math.max(...Object.values(merged), 1);
+    const { results, eliminated } = allocate(merged, cat.budget);
+
+    cat.options.forEach(opt => {
+      const s = slugify(opt);
+      const votes = merged[opt] || 0;
+      const isElim = eliminated.hasOwnProperty(opt);
+      const result = results[opt];
+      const pct = maxVotes > 0 ? (votes / maxVotes) * 100 : 0;
+      const isSave = opt === "Save for Future Giving";
+
+      document.getElementById(`votes-${cat.key}-${s}`).textContent = votes;
+
+      const amtEl = document.getElementById(`amt-${cat.key}-${s}`);
+      const tagEl = document.getElementById(`tag-${cat.key}-${s}`);
+      if (result) {
+        amtEl.textContent = `SAR ${result.amount.toLocaleString()}`;
+        amtEl.className = 'opt-amount';
+        tagEl.innerHTML = result.capped ? '<span class="tag tag-cap">CAPPED</span>' : '';
+      } else if (isElim && votes > 0) {
+        amtEl.textContent = 'Eliminated';
+        amtEl.className = 'opt-amount eliminated';
+        tagEl.innerHTML = `<span class="tag tag-elim">&lt;${MIN_VOTES} votes</span>`;
+      } else {
+        amtEl.textContent = '';
+        tagEl.innerHTML = '';
+      }
+
+      const barEl = document.getElementById(`bar-${cat.key}-${s}`);
+      barEl.style.width = pct + '%';
+      barEl.className = 'bar-fill' + (isElim ? ' eliminated' : (isSave ? ' green' : ''));
+    });
+  });
+
+  // Total voters (server + 1 if user has any selections)
+  const hasSelections = CATEGORIES.some(c => mySelections[c.key].size > 0);
+  document.getElementById('totalVoters').textContent = serverTotalVoters + (hasSelections ? 1 : 0);
+}
+
+// ═══════════════════════════════════════
+// SERVER COMMUNICATION
+// ═══════════════════════════════════════
+async function loadResults() {
+  try {
+    const resp = await fetch(SCRIPT_URL);
+    const data = await resp.json();
+    serverTotalVoters = data.totalVoters;
+    CATEGORIES.forEach(cat => {
+      serverCounts[cat.key] = data[cat.key] || {};
+    });
+    updateDisplay();
+  } catch (err) {
+    console.error('Failed to load results:', err);
+  }
 }
 
 async function submitVote() {
-  if (localStorage.getItem('giving_voted')) return;
+  const name = document.getElementById('voterName').value.trim();
+  if (!name) {
+    document.getElementById('voterName').focus();
+    document.getElementById('voterName').style.borderColor = '#dc2626';
+    setTimeout(() => document.getElementById('voterName').style.borderColor = '', 2000);
+    return;
+  }
 
   const btn = document.getElementById('submitBtn');
   btn.disabled = true;
@@ -468,22 +480,37 @@ async function submitVote() {
 
   const votes = {};
   CATEGORIES.forEach(cat => {
-    votes[cat.key] = [];
-    document.querySelectorAll(`input[name="${cat.key}"]:checked`).forEach(cb => {
-      votes[cat.key].push(cb.value);
-    });
+    votes[cat.key] = Array.from(mySelections[cat.key]);
   });
 
   try {
-    // Apps Script redirects POST — use no-cors mode which completes the redirect
-    const resp = await fetch(SCRIPT_URL, {
+    await fetch(SCRIPT_URL, {
       method: 'POST',
-      body: JSON.stringify({ votes }),
+      body: JSON.stringify({ name, votes }),
       mode: 'no-cors'
     });
-    // no-cors returns opaque response (status 0) — treat as success
-    localStorage.setItem('giving_voted', 'true');
-    showView('success');
+
+    // Move my selections into server counts
+    CATEGORIES.forEach(cat => {
+      mySelections[cat.key].forEach(opt => {
+        serverCounts[cat.key][opt] = (serverCounts[cat.key][opt] || 0) + 1;
+      });
+      mySelections[cat.key] = new Set();
+    });
+    serverTotalVoters++;
+
+    // Reset UI
+    document.querySelectorAll('.opt-row.selected').forEach(el => el.classList.remove('selected'));
+    document.getElementById('voterName').value = '';
+    updateDisplay();
+
+    // Toast
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+
+    btn.disabled = false;
+    btn.textContent = 'Submit Vote';
   } catch (err) {
     btn.disabled = false;
     btn.textContent = 'Submit Vote';
@@ -493,111 +520,12 @@ async function submitVote() {
 }
 
 // ═══════════════════════════════════════
-// RESULTS
+// INIT
 // ═══════════════════════════════════════
-function allocate(counts, budget) {
-  // counts = {name: voteCount, ...}
-  // Step 1: eliminate below threshold
-  const passing = {};
-  const eliminated = {};
-  for (const [name, votes] of Object.entries(counts)) {
-    if (votes < MIN_VOTES) eliminated[name] = votes;
-    else passing[name] = votes;
-  }
-
-  const totalPassingVotes = Object.values(passing).reduce((a,b) => a+b, 0);
-  if (totalPassingVotes === 0) return { results: [], eliminated };
-
-  // Step 2: proportional allocation
-  let results = Object.entries(passing).map(([name, votes]) => ({
-    name, votes,
-    pct: votes / totalPassingVotes,
-    amount: (votes / totalPassingVotes) * budget,
-    capped: false
-  }));
-
-  // Step 3: cap fixed-cost items and redistribute
-  let surplus = 0;
-  results.forEach(r => {
-    if (FIXED_COSTS[r.name] && r.amount > FIXED_COSTS[r.name]) {
-      surplus += r.amount - FIXED_COSTS[r.name];
-      r.amount = FIXED_COSTS[r.name];
-      r.capped = true;
-    }
-  });
-
-  if (surplus > 0) {
-    const uncapped = results.filter(r => !r.capped);
-    const uncappedVotes = uncapped.reduce((a,r) => a + r.votes, 0);
-    if (uncappedVotes > 0) {
-      uncapped.forEach(r => {
-        r.amount += (r.votes / uncappedVotes) * surplus;
-      });
-    } else {
-      // All capped — remainder to Save
-      const saveItem = results.find(r => r.name === "Save for Future Giving");
-      if (saveItem) saveItem.amount += surplus;
-      else results.push({ name: "Save for Future Giving", votes: 0, pct: 0, amount: surplus, capped: false });
-    }
-  }
-
-  // Round to nearest SAR
-  results.forEach(r => r.amount = Math.round(r.amount));
-
-  return { results, eliminated };
-}
-
-async function loadResults() {
-  const loading = document.getElementById('resultsLoading');
-  const content = document.getElementById('resultsContent');
-  loading.style.display = 'block';
-  content.style.display = 'none';
-
-  try {
-    const resp = await fetch(SCRIPT_URL);
-    const data = await resp.json();
-
-    let html = `<div class="total-voters">Total voters: <strong>${data.totalVoters}</strong></div>`;
-
-    CATEGORIES.forEach(cat => {
-      const counts = {};
-      cat.options.forEach(opt => counts[opt] = data[cat.key][opt] || 0);
-      const maxVotes = Math.max(...Object.values(counts), 1);
-      const { results, eliminated } = allocate(counts, cat.budget);
-
-      html += `<div class="result-cat"><h2>${cat.name}</h2>`;
-      html += `<div class="budget" style="font-size:12px;color:#94a3b8;margin-bottom:14px;">Budget: SAR ${cat.budget.toLocaleString()} · Min ${MIN_VOTES} votes to qualify</div>`;
-
-      cat.options.forEach(opt => {
-        const votes = counts[opt] || 0;
-        const isEliminated = eliminated.hasOwnProperty(opt);
-        const result = results.find(r => r.name === opt);
-        const pct = maxVotes > 0 ? (votes / maxVotes) * 100 : 0;
-        const isSave = opt === "Save for Future Giving";
-
-        html += `<div class="result-row">`;
-        html += `<div class="result-row-header">`;
-        html += `<span class="result-name">${isSave ? '🏦 ' : ''}${opt}`;
-        if (isEliminated && votes > 0) html += `<span class="eliminated-tag">Eliminated</span>`;
-        if (result) html += `<span class="allocation-tag">SAR ${result.amount.toLocaleString()}${result.capped ? ' (capped)' : ''}</span>`;
-        html += `</span>`;
-        html += `<span class="result-stats">${votes} vote${votes !== 1 ? 's' : ''}</span>`;
-        html += `</div>`;
-        html += `<div class="bar-bg"><div class="bar-fill ${isEliminated ? 'eliminated' : (isSave ? 'green' : '')}" style="width:${pct}%"></div></div>`;
-        html += `</div>`;
-      });
-
-      html += `</div>`;
-    });
-
-    content.innerHTML = html;
-    loading.style.display = 'none';
-    content.style.display = 'block';
-  } catch (err) {
-    loading.textContent = 'Error loading results. Please try again.';
-    console.error(err);
-  }
-}
+buildUI();
+loadResults();
+// Refresh server data every 30 seconds
+setInterval(loadResults, 30000);
 </script>
 
 </body>
