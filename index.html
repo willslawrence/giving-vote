@@ -383,19 +383,25 @@ function allocate(counts, budget) {
     results[name] = { votes, amount: (votes / totalPV) * budget, capped: false };
   }
 
-  let surplus = 0;
-  for (const [name, r] of Object.entries(results)) {
-    if (FIXED_COSTS[name] && r.amount > FIXED_COSTS[name]) {
-      surplus += r.amount - FIXED_COSTS[name];
-      r.amount = FIXED_COSTS[name];
-      r.capped = true;
+  // Iteratively cap fixed-cost items and redistribute surplus
+  let changed = true;
+  while (changed) {
+    changed = false;
+    let surplus = 0;
+    for (const [name, r] of Object.entries(results)) {
+      if (FIXED_COSTS[name] && !r.capped && r.amount > FIXED_COSTS[name]) {
+        surplus += r.amount - FIXED_COSTS[name];
+        r.amount = FIXED_COSTS[name];
+        r.capped = true;
+        changed = true;
+      }
     }
-  }
-  if (surplus > 0) {
-    const uncapped = Object.entries(results).filter(([,r]) => !r.capped);
-    const uv = uncapped.reduce((a,[,r]) => a + r.votes, 0);
-    if (uv > 0) {
-      uncapped.forEach(([name, r]) => { r.amount += (r.votes / uv) * surplus; });
+    if (surplus > 0) {
+      const uncapped = Object.entries(results).filter(([,r]) => !r.capped);
+      const uv = uncapped.reduce((a,[,r]) => a + r.votes, 0);
+      if (uv > 0) {
+        uncapped.forEach(([name, r]) => { r.amount += (r.votes / uv) * surplus; });
+      }
     }
   }
   for (const r of Object.values(results)) r.amount = Math.round(r.amount);
