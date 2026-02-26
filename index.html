@@ -435,7 +435,7 @@ function updateDisplay() {
         amtEl.className = 'opt-amount';
         tagEl.innerHTML = result.capped ? '<span class="tag tag-cap">CAPPED</span>' : '';
       } else if (isElim && votes > 0) {
-        amtEl.textContent = 'Eliminated';
+        amtEl.textContent = 'Threshold not reached';
         amtEl.className = 'opt-amount eliminated';
         tagEl.innerHTML = `<span class="tag tag-elim">&lt;${MIN_VOTES} votes</span>`;
       } else {
