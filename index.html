@@ -433,7 +433,7 @@ function updateDisplay() {
       if (result) {
         amtEl.textContent = `SAR ${result.amount.toLocaleString()}`;
         amtEl.className = 'opt-amount';
-        tagEl.innerHTML = result.capped ? '<span class="tag tag-cap">CAPPED</span>' : '';
+        tagEl.innerHTML = result.capped ? '<span class="tag tag-cap">🎉 Amount Reached</span>' : '';
       } else if (isElim && votes > 0) {
         amtEl.textContent = 'Threshold not reached';
         amtEl.className = 'opt-amount eliminated';
