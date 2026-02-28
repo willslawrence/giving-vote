@@ -264,13 +264,12 @@
 
 <div class="header">
   <h1>Giving Allocation Vote</h1>
-  <p>Tap options you approve · Results update live</p>
+  <p>Voting is closed · Final results shown below</p>
 </div>
 
-<div class="name-section">
-  <label>Your Name</label>
-  <div class="hint">Used for auditing only — not shown in results</div>
-  <input type="text" class="name-input" id="voterName" placeholder="Enter your name or pseudonym">
+<div class="name-section" style="background: rgba(220,38,38,0.1); border-color: #dc2626;">
+  <label style="color: #dc2626;">🔒 Voting Closed</label>
+  <div class="hint" style="color: #f87171;">Thank you for participating! Results are final. Next vote at the next members meeting.</div>
 </div>
 
 <div class="voter-count">
@@ -279,8 +278,8 @@
 
 <div id="categoriesContainer"></div>
 
-<div class="submit-wrap">
-  <button class="submit-btn" id="submitBtn" onclick="submitVote()">Submit Vote</button>
+<div class="submit-wrap" style="display:none;">
+  <button class="submit-btn" id="submitBtn" disabled>Voting Closed</button>
 </div>
 
 <div class="toast" id="toast">✅ Vote Recorded!</div>
@@ -357,15 +356,8 @@ function slugify(s) {
 }
 
 function toggleOption(el) {
-  const cat = el.dataset.cat;
-  const opt = el.dataset.opt;
-  el.classList.toggle('selected');
-  if (el.classList.contains('selected')) {
-    mySelections[cat].add(opt);
-  } else {
-    mySelections[cat].delete(opt);
-  }
-  updateDisplay();
+  // Voting closed — no interaction
+  return;
 }
 
 function allocate(counts, budget) {
